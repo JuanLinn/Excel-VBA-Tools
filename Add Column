@@ -1,0 +1,17 @@
+Sub SummarizeColumn3()
+    Dim filePath, fileName, j, wb
+    filePath = ThisWorkbook.Path & "\"
+    fileName = Dir(filePath & "*.xlsx")
+    Do Until fileName = ""
+        Set wb = Workbooks.Open(filePath & fileName)
+        j = j + 1
+        
+        With ThisWorkbook.Sheets(1)
+            wb.Sheets(1).Range("A:C").Copy .Cells(1, j)
+            .Cells(1, j).Insert
+            .Cells(1, j) = wb.Name
+        End With
+        wb.Close False
+        fileName = Dir
+    Loop
+End Sub
